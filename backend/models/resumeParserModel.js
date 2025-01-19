@@ -1,8 +1,11 @@
-import { timeStamp } from "console";
 import mongoose from "mongoose";
-const resumeSchema = mongoose.Schema({
-    id: String,
-    content: Object,
-}, { timeStamp: true })
 
-export const Resumes = mongoose.model('Resumes', resumeSchema);
+const resumeSchema = new mongoose.Schema({
+  id: { type: String, required: false },
+  content: { type: Object, required: true },
+  fullResponse: { type: Object, required: true },
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+  createdAt: { type: Date, default: Date.now }, 
+});
+
+export const Resumes = mongoose.model("Resume", resumeSchema);

@@ -5,19 +5,22 @@ import parsingRoute from './routes/parserRoute.js';
 import ConnectDB from './db/conn.js';
 import path from 'path';
 import dotenv from 'dotenv';
+import UserRoute from "./routes/UserRoutes.js"
+import cookieParser from 'cookie-parser';
 
 dotenv.config();
 ConnectDB()
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-
+app.use(cookieParser());
 
 // Middleware
 app.use(cors()); 
 app.use(express.json());
 app.use(fileUpload()); 
 app.use('/api',parsingRoute);
+app.use('/api',UserRoute);
 
 const dirPath = path.resolve();
 app.use('/resume-data', express.static(path.join(dirPath, 'public')));
