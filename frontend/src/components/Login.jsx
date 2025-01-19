@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import Cookies from 'js-cookie'; // Import js-cookie
+import Cookies from 'js-cookie'; 
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const navigate = useNavigate(); // Move useNavigate here, outside of handleLogin
+  const navigate = useNavigate(); 
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -22,10 +22,9 @@ const Login = () => {
       const response = await axios.post("http://localhost:3000/api/login", { email, password });
 
       if (response.data.success) {
-        // Store the token in a cookie instead of localStorage
         Cookies.set('authToken', response.data.token, { expires: 7, path: '/' });
         console.log('Logged in successfully', response.data.user);
-        navigate('/extractedResume'); // Navigation works now
+        navigate('/'); 
       } else {
         setError(response.data.message);
       }
