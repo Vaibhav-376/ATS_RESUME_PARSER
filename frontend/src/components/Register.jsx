@@ -21,7 +21,7 @@ const Register = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:3000/api/register", { name, email, password });
+      const response = await axios.post("https://ats-resume-parser.onrender.com/api/register", { name, email, password });
 
       if (response.data.success) {
         // Set the token in the cookie with an expiration time of 7 days

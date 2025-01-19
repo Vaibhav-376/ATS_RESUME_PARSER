@@ -17,7 +17,7 @@ const GettingResume = () => {
   async function getResumesInfo() {
     try {
       setLoading(true);
-      const response = await fetch("http://localhost:3000/api/resume");
+      const response = await fetch("https://ats-resume-parser.onrender.com/api/resume");
       const result = await response.json();
       setData(result.data);
     } catch (error) {

@@ -19,7 +19,7 @@ const Login = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:3000/api/login", { email, password });
+      const response = await axios.post("https://ats-resume-parser.onrender.com/api/login", { email, password });
 
       if (response.data.success) {
         Cookies.set('authToken', response.data.token, { expires: 7, path: '/' });
