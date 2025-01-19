@@ -16,7 +16,6 @@ export const registerUser = async (req, res) => {
             });
         }
 
-        console.log(name, email, password);
 
         const isUserExists = await Users.findOne({ email });
         if (isUserExists) {

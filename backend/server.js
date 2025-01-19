@@ -15,10 +15,9 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 app.use(cookieParser());
 
-// Middleware
 app.use(cors({
-    origin: "https://ats-resume-parser.onrender.com", // Replace with your frontend URL
-    credentials: true, // Allow cookies
+    origin: "https://ats-resume-parser.onrender.com", 
+    credentials: true, 
   })); 
 app.use(express.json());
 app.use(fileUpload()); 

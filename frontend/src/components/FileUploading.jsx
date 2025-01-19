@@ -30,7 +30,6 @@ const FileUploading = () => {
 
       if (response.ok) {
         setMessage('File uploaded and processed successfully.');
-        console.log(result);
       } else {
         setMessage(result.error || 'File upload failed.');
       }
