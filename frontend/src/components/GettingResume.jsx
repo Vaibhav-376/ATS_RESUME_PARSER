@@ -9,10 +9,34 @@ import {
   TableRow,
 } from "../components/ui/table";
 import Navbar from "./templates/Navbar";
+import * as XLSX from "xlsx";
+import { saveAs } from "file-saver";
+
 
 const GettingResume = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const downloadExcel = () => {
+    const formattedData = data.map((item) => ({
+      Name: item.content?.personal_infos?.name?.first_name || "N/A",
+      Address: item.content?.personal_infos?.address?.formatted_location || "N/A",
+      Phone: item.content?.personal_infos?.phones?.join(", ") || "N/A",
+      Email: item.content?.personal_infos?.mails?.join(", ") || "N/A",
+    }));
+
+    const worksheet = XLSX.utils.json_to_sheet(formattedData);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Resumes");
+
+    const excelBuffer = XLSX.write(workbook, {
+      bookType: "xlsx",
+      type: "array",
+    });
+    const dataBlob = new Blob([excelBuffer], { type: "application/octet-stream" });
+    saveAs(dataBlob, "resume_data.xlsx");
+  };
+
 
   async function getResumesInfo() {
     try {
@@ -34,6 +58,17 @@ const GettingResume = () => {
   return (
     <>
       <Navbar />
+      {!loading && data.length > 0 && (
+        <div className="flex justify-end mb-4">
+          <button
+            onClick={downloadExcel}
+            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded shadow"
+          >
+            Download Excel
+          </button>
+        </div>
+      )}
+
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-100 flex items-center justify-center p-4">
         <div className="bg-white shadow-xl rounded-lg p-6 max-w-6xl w-full">
           {loading ? (
